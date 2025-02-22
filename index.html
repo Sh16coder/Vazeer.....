@@ -6,90 +6,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>vazeer classes shivam soni</title>
+    <title>Vazeer Classes - Shivam Soni</title>
+
+    <!-- Firebase Authentication -->
     <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyD9ByIFYJKfxc4Cmkfdc6t8yBWEO2NctL4",
-    authDomain: "vazeer-classes-e6ee0.firebaseapp.com",
-    projectId: "vazeer-classes-e6ee0",
-    storageBucket: "vazeer-classes-e6ee0.appspot.com",
-    messagingSenderId: "934910649671",
-    appId: "1:934910649671:web:af8ade4a28ccbfafaf5862",
-    measurementId: "G-PTXEY6P35S"
-  };
+      const firebaseConfig = {
+        apiKey: "AIzaSyD9ByIFYJKfxc4Cmkfdc6t8yBWEO2NctL4",
+        authDomain: "vazeer-classes-e6ee0.firebaseapp.com",
+        projectId: "vazeer-classes-e6ee0",
+        storageBucket: "vazeer-classes-e6ee0.appspot.com",
+        messagingSenderId: "934910649671",
+        appId: "1:934910649671:web:af8ade4a28ccbfafaf5862",
+        measurementId: "G-PTXEY6P35S"
+      };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
 
-  // Login function
-  window.login = function() {
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
+      window.login = function() {
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        document.getElementById('status').innerText = "Login Successful!";
-      })
-      .catch((error) => {
-        document.getElementById('status').innerText = error.message;
-      });
-  };
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            document.getElementById('status').innerText = "Login Successful!";
+          })
+          .catch((error) => {
+            document.getElementById('status').innerText = error.message;
+          });
+      };
 
-  // Signup function
-  window.signup = function() {
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
+      window.signup = function() {
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        document.getElementById('status').innerText = "Account Created!";
-      })
-      .catch((error) => {
-        document.getElementById('status').innerText = error.message;
-      });
-  };
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            document.getElementById('status').innerText = "Account Created!";
+          })
+          .catch((error) => {
+            document.getElementById('status').innerText = error.message;
+          });
+      };
 
-  // Logout function
-  window.logout = function() {
-    signOut(auth)
-      .then(() => {
-        document.getElementById('status').innerText = "Logged Out!";
-      })
-      .catch((error) => {
-        document.getElementById('status').innerText = error.message;
-      });
-  };
+      window.logout = function() {
+        signOut(auth)
+          .then(() => {
+            document.getElementById('status').innerText = "Logged Out!";
+          })
+          .catch((error) => {
+            document.getElementById('status').innerText = error.message;
+          });
+      };
     </script>
+
+    <!-- OneSignal Notifications -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "4162a67e-f332-4839-9607-f9b00e79ceee",
-    });
-  });
-</script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "4162a67e-f332-4839-9607-f9b00e79ceee",
+          safari_web_id: "web.onesignal.auto.12345678", 
+          notifyButton: {
+            enable: true 
+          }
+        });
+
+        OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+          if (isEnabled) {
+            console.log("Push notifications are enabled!");
+          } else {
+            console.log("Push notifications are not enabled yet.");
+          }
+        });
+      });
+    </script>
 </head>
+
 <body>
     <header>
         <a href="https://sh16coder.github.io/VAZEER-CLASSES/" class="logo">Vazeer Classes</a>
-
         <nav>
-            <a href="#" class="active"> Home</a>
-            <a href="https://sh16coder.github.io/Vz1/" >about us</a>
-            <a href="https://m.youtube.com/@vazeerclasses9993/videos" >lecture</a>
-            <a href="https://m.youtube.com/@vazeerclasses9993/playlists" >playlists</a>
-           
-            <a href="https://sh16coder.github.io/VAZEER-CLASSES/#exam%20tips" >Contact</a>
+            <a href="#" class="active">Home</a>
+            <a href="https://sh16coder.github.io/Vz1/">About Us</a>
+            <a href="https://m.youtube.com/@vazeerclasses9993/videos">Lectures</a>
+            <a href="https://m.youtube.com/@vazeerclasses9993/playlists">Playlists</a>
+            <a href="https://sh16coder.github.io/VAZEER-CLASSES/#exam%20tips">Contact</a>
         </nav>
     </header>
+
     <section class="home">
         <div class="home-img">
-            <img src="main.jpg" alt="">
+            <img src="main.jpg" alt="Vazeer Classes">
         </div>
         <div class="home-content">
             <h1>Hi, It's <span>SHIVAM (VAZEER)</span></h1>
@@ -103,18 +115,19 @@
                 <a href="https://whatsapp.com/channel/0029VaCxFSALikg91hd93W2i"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
             
-            <a href="https://sh16coder.github.io/Vz/" class="btn">wana learn?</a>
-            <a href="https://sh16coder.github.io/demo/" class="btn">DEMO LECTURES</a>
-            <a href="https://sh16coder.github.io/Vzrlive/" class="btn">live</a>
+            <a href="https://sh16coder.github.io/Vz/" class="btn">Wanna Learn?</a>
+            <a href="https://sh16coder.github.io/demo/" class="btn">Demo Lectures</a>
+            <a href="https://sh16coder.github.io/Vzrlive/" class="btn">Live</a>
         </div>
-        <div>
-  <h2>Login / Signup</h2>
-  <input type="email" id="email" placeholder="Enter email">
-  <input type="password" id="password" placeholder="Enter password">
-  <button onclick="login()">Login</button>
-  <button onclick="signup()">Sign Up</button>
-  <button onclick="logout()">Logout</button>
-  <p id="status"></p>
+
+        <div class="login-container">
+            <h2>Login / Signup</h2>
+            <input type="email" id="email" placeholder="Enter email">
+            <input type="password" id="password" placeholder="Enter password">
+            <button onclick="login()">Login</button>
+            <button onclick="signup()">Sign Up</button>
+            <button onclick="logout()">Logout</button>
+            <p id="status"></p>
         </div>
     </section>
 </body>

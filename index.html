@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,81 +10,119 @@
 
     <!-- Firebase Authentication -->
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-      import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyD9ByIFYJKfxc4Cmkfdc6t8yBWEO2NctL4",
-        authDomain: "vazeer-classes-e6ee0.firebaseapp.com",
-        projectId: "vazeer-classes-e6ee0",
-        storageBucket: "vazeer-classes-e6ee0.appspot.com",
-        messagingSenderId: "934910649671",
-        appId: "1:934910649671:web:af8ade4a28ccbfafaf5862",
-        measurementId: "G-PTXEY6P35S"
-      };
+        const firebaseConfig = {
+            apiKey: "AIzaSyD9ByIFYJKfxc4Cmkfdc6t8yBWEO2NctL4",
+            authDomain: "vazeer-classes-e6ee0.firebaseapp.com",
+            projectId: "vazeer-classes-e6ee0",
+            storageBucket: "vazeer-classes-e6ee0.appspot.com",
+            messagingSenderId: "934910649671",
+            appId: "1:934910649671:web:af8ade4a28ccbfafaf5862",
+            measurementId: "G-PTXEY6P35S"
+        };
 
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-      window.login = function() {
-        let email = document.getElementById('email').value;
-        let password = document.getElementById('password').value;
+        window.login = function () {
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
 
-        signInWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            document.getElementById('status').innerText = "Login Successful!";
-          })
-          .catch((error) => {
-            document.getElementById('status').innerText = error.message;
-          });
-      };
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    document.getElementById('status').innerText = "Login Successful!";
+                    closePopup();
+                })
+                .catch((error) => {
+                    document.getElementById('status').innerText = error.message;
+                });
+        };
 
-      window.signup = function() {
-        let email = document.getElementById('email').value;
-        let password = document.getElementById('password').value;
+        window.signup = function () {
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
 
-        createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            document.getElementById('status').innerText = "Account Created!";
-          })
-          .catch((error) => {
-            document.getElementById('status').innerText = error.message;
-          });
-      };
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    document.getElementById('status').innerText = "Account Created!";
+                    closePopup();
+                })
+                .catch((error) => {
+                    document.getElementById('status').innerText = error.message;
+                });
+        };
 
-      window.logout = function() {
-        signOut(auth)
-          .then(() => {
-            document.getElementById('status').innerText = "Logged Out!";
-          })
-          .catch((error) => {
-            document.getElementById('status').innerText = error.message;
-          });
-      };
+        window.logout = function () {
+            signOut(auth)
+                .then(() => {
+                    document.getElementById('status').innerText = "Logged Out!";
+                })
+                .catch((error) => {
+                    document.getElementById('status').innerText = error.message;
+                });
+        };
     </script>
 
     <!-- OneSignal Notifications -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function(OneSignal) {
-        await OneSignal.init({
-          appId: "4162a67e-f332-4839-9607-f9b00e79ceee",
-          safari_web_id: "web.onesignal.auto.12345678", 
-          notifyButton: {
-            enable: true 
-          }
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function (OneSignal) {
+            await OneSignal.init({
+                appId: "4162a67e-f332-4839-9607-f9b00e79ceee",
+                notifyButton: {
+                    enable: true
+                }
+            });
         });
-
-        OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-          if (isEnabled) {
-            console.log("Push notifications are enabled!");
-          } else {
-            console.log("Push notifications are not enabled yet.");
-          }
-        });
-      });
     </script>
+
+    <style>
+        /* Popup Login Form */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .popup input {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+        }
+
+        .popup button {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Typing Effect */
+        .typing-text span {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -101,12 +139,14 @@
 
     <section class="home">
         <div class="home-img">
-            <img src="main.jpg" alt="Vazeer Classes">
+            <img src="main.jpg" alt="">
         </div>
+
         <div class="home-content">
             <h1>Hi, It's <span>SHIVAM (VAZEER)</span></h1>
             <h3 class="typing-text">I'm <span></span></h3>
-            <p>As a passionate and dedicated PGT Physics teacher, I am committed to making complex scientific concepts accessible and engaging for students from grades 9 to 12. With extensive experience in both school settings and digital education, I specialize in preparing students for board examinations and competitive exams like JEE and NEET.</p>
+            <p>As a passionate and dedicated PGT Physics teacher, I specialize in preparing students for board exams and competitive exams like JEE and NEET.</p>
+
             <div class="social-icons">
                 <a href="https://m.youtube.com/@vazeerclasses9993/search"><i class="fa-brands fa-youtube"></i></a>
                 <a href="https://www.facebook.com/vazeersoni"><i class="fa-brands fa-facebook"></i></a>
@@ -114,21 +154,67 @@
                 <a href="#"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://whatsapp.com/channel/0029VaCxFSALikg91hd93W2i"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
-            
+
             <a href="https://sh16coder.github.io/Vz/" class="btn">Wanna Learn?</a>
             <a href="https://sh16coder.github.io/demo/" class="btn">Demo Lectures</a>
             <a href="https://sh16coder.github.io/Vzrlive/" class="btn">Live</a>
-        </div>
 
-        <div class="login-container">
-            <h2>Login / Signup</h2>
-            <input type="email" id="email" placeholder="Enter email">
-            <input type="password" id="password" placeholder="Enter password">
-            <button onclick="login()">Login</button>
-            <button onclick="signup()">Sign Up</button>
-            <button onclick="logout()">Logout</button>
-            <p id="status"></p>
+            <button onclick="openPopup()">Login / Signup</button>
         </div>
     </section>
+
+    <!-- Login Popup -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2>Login / Signup</h2>
+        <input type="email" id="email" placeholder="Enter email">
+        <input type="password" id="password" placeholder="Enter password">
+        <button onclick="login()">Login</button>
+        <button onclick="signup()">Sign Up</button>
+        <button onclick="logout()">Logout</button>
+        <button onclick="closePopup()">Close</button>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        function openPopup() {
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        // Typing Effect
+        const typedTextSpan = document.querySelector(".typing-text span");
+        const textArray = ["a Learner", "a Creator", "a Teacher"];
+        let textArrayIndex = 0;
+        let charIndex = 0;
+
+        function type() {
+            if (charIndex < textArray[textArrayIndex].length) {
+                typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 150);
+            } else {
+                setTimeout(erase, 1000);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, 100);
+            } else {
+                textArrayIndex = (textArrayIndex + 1) % textArray.length;
+                setTimeout(type, 500);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => setTimeout(type, 500));
+    </script>
 </body>
 </html>

@@ -216,4 +216,31 @@ span{
     font-weight: 600;
     min-width: 280px;
 }
+/* Custom Chat Button */
+.chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #A52A2A; /* Dull red */
+    color: black;
+    border: 2px solid black;
+    padding: 14px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
 
+.chat-button:hover {
+    background-color: black;
+    color: white;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Chat Window Custom Styling */
+#tawkto-chat {
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+}

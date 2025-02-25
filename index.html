@@ -150,6 +150,22 @@ button:active {
 </head>
 
 <body>
+        <!-- Floating Chatbot Button -->
+    <div id="chatbot-button" onclick="toggleChatbot()">💬</div>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-container">
+        <div id="chatbot-header">
+            <span>Ask Your Doubts</span>
+            <button onclick="toggleChatbot()">✖</button>
+        </div>
+        <div id="chat-box"></div>
+        <div class="input-container">
+            <input type="text" id="question" placeholder="Type your question...">
+            <button onclick="askDoubt()">Ask</button>
+        </div>
+    </div>
+    
     <!--Start of Tawk.to Script-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
